@@ -1,34 +1,45 @@
+# Limpar dados existentes
+# Response.destroy_all
+# Option.destroy_all
+# Question.destroy_all
+# Survey.destroy_all
+# User.destroy_all
+
 # Criando usuários
 users = User.create!(
   [
-    { name: 'Coordenador Teste', email: 'coordenador@teste.com', role: :coordinator },
-    { name: 'Respondente Teste', email: 'respondente@teste.com', role: :respondent },
-    { name: 'Respondente Teste2', email: 'respondente2@teste.com', role: :respondent }
+    { name: 'Coordenador Teste', email: 'coordenador@gmail.com', password: "123456", role: 0 },
+    { name: 'Coordenador Teste2', email: 'coordenador2@gmail.com', password: "123456", role: 0 },
+    { name: 'Respondente Teste', email: 'respondente@gmail.com', password: "123456", role: 1 },
+    { name: 'Respondente Teste2', email: 'respondente2@gmail.com', password: "123456", role: 1 }
   ]
 )
 
-coordenador = users.find { |user| user.role == 'coordinator' }
-respondente = users.find { |user| user.role == 'respondent' }
+coordenador1, coordenador2 = users.select { |user| user.role == 0 }
+respondente1, respondente2 = users.select { |user| user.role == 1 }
 
-# Criando pesquisa
-pesquisa = Survey.create!(
-  title: 'Pesquisa de Satisfação',
-  start_date: 1.week.ago,
-  end_date: 1.week.from_now,
-  user: coordenador
+# Criando pesquisas
+pesquisas = Survey.create!(
+  [
+    { title: 'Pesquisa de Satisfação 1', start_date: Time.now, end_date: 2.weeks.from_now, user: coordenador1 },
+    { title: 'Pesquisa de Satisfação 2', start_date: Time.now, end_date: 2.weeks.from_now, user: coordenador2 },
+    { title: 'Pesquisa de Satisfação 3', start_date: Time.now, end_date: 2.weeks.from_now, user: coordenador1 },
+    { title: 'Pesquisa de Satisfação 4', start_date: Time.now, end_date: 2.weeks.from_now, user: coordenador2 }
+  ]
 )
 
-# Criando perguntas para a pesquisa
+# Criando perguntas para a primeira pesquisa
 perguntas = Question.create!(
   [
-    { text: 'Qual é a sua satisfação geral com o nosso aplicativo?', question_type: 'multiple_choice', survey: pesquisa },
-    { text: 'Quais funcionalidades você gostaria de ver no futuro?', question_type: 'checkbox', survey: pesquisa }
+    { text: 'Qual é a sua satisfação geral com o nosso aplicativo?', question_type: 'multiple_choice', survey: pesquisas.first },
+    { text: 'Quais funcionalidades você gostaria de ver no futuro?', question_type: 'checkbox', survey: pesquisas.first },
+    { text: 'Sei lá kkkk?', question_type: 'text', survey: pesquisas.first }
   ]
 )
 
-pergunta1, pergunta2 = perguntas
+pergunta1, pergunta2, pergunta3 = perguntas
 
-# Criando opções para a primeira pergunta
+# Criando opções para a primeira e segunda perguntas
 options1 = Option.create!(
   [
     { text: 'Muito satisfeito', question: pergunta1 },
@@ -39,7 +50,6 @@ options1 = Option.create!(
   ]
 )
 
-# Criando opções para a segunda pergunta
 options2 = Option.create!(
   [
     { text: 'Melhorar o desempenho', question: pergunta2 },
@@ -48,11 +58,12 @@ options2 = Option.create!(
   ]
 )
 
-# Criando respostas de teste
+# Criando respostas de teste para o respondente1
 Response.create!(
   [
-    { user: respondente, question: pergunta1, selected_option: options1.find { |o| o.text == 'Satisfeito' } },
-    { user: respondente, question: pergunta2, selected_option: options2.find { |o| o.text == 'Adicionar novas funcionalidades' } }
+    { user: respondente1, question: pergunta1, selected_option: options1.find { |o| o.text == 'Satisfeito' } },
+    { user: respondente1, question: pergunta2, selected_option: options2.find { |o| o.text == 'Adicionar novas funcionalidades' } },
+    { user: respondente1, question: pergunta3, text_response: 'Achei tudo muito bom!' }
   ]
 )
 
@@ -63,10 +74,3 @@ puts 'Dados de teste criados com sucesso!'
 # para resertar
 # rails db:seed
 # para repopular
-
-# Limpar dados existentes
-# User.destroy_all
-# Survey.destroy_all
-# Question.destroy_all
-# Option.destroy_all
-# Response.destroy_all
