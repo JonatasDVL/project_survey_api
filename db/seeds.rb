@@ -1,9 +1,9 @@
 # Limpar dados existentes
-# Response.destroy_all
-# Option.destroy_all
-# Question.destroy_all
-# Survey.destroy_all
-# User.destroy_all
+Response.destroy_all
+Option.destroy_all
+Question.destroy_all
+Survey.destroy_all
+User.destroy_all
 
 # Criando usuários
 users = User.create!(
