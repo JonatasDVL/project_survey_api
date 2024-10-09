@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :surveys
-  has_many :responses
+  has_many :surveys, dependent: :destroy
+  has_many :responses, dependent: :destroy
 
   validates :name, presence: true, length: { minimum: 3 }
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }

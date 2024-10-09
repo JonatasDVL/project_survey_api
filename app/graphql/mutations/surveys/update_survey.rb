@@ -10,15 +10,17 @@ module Mutations
     field :survey, Types::SurveyType, null: true
     field :errors, [String], null: false
 
-    def resolve(id:, **attributes)
+    def resolve(**attributes)
       user = context[:current_user] 
-      survey = Survey.find_by(id: id)
+      survey = Survey.find_by(id: attributes[:id])
       
       if survey.nil?
         return { survey: nil, errors: ["Survey not found"] }
       end
+
+      user_confirmation = User.find_by(id: survey.user_id)
       
-      if user.role == 1 
+      if user.role == 1 or user != user_confirmation
         return { survey: nil, errors: ["Permission denied for update"] }
       end
 

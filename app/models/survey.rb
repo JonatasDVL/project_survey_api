@@ -1,7 +1,7 @@
 class Survey < ApplicationRecord
   belongs_to :user
   has_many :questions, dependent: :destroy
-  has_many :responses, through: :questions
+  has_many :responses, through: :questions, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 3 }
   validates :start_date, presence: true
