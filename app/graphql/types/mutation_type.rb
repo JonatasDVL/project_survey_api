@@ -3,7 +3,9 @@
 module Types
   class MutationType < Types::BaseObject
 
-    # field :create_user, mutation: Mutations::Users::CreateUser
+    field :create_user, mutation: Mutations::Users::CreateUser
+    field :update_user, mutation: Mutations::Users::UpdateUser
+    field :delete_user, mutation: Mutations::Users::DeleteUser
 
     field :create_survey, mutation: Mutations::Surveys::CreateSurvey
     field :update_survey, mutation: Mutations::Surveys::UpdateSurvey
@@ -17,6 +19,8 @@ module Types
     field :update_option, mutation: Mutations::Options::UpdateOption
     field :delete_option, mutation: Mutations::Options::DeleteOption
 
-    # field :create_response, mutation: Mutations::Response::CreateResponse
+    field :create_response, mutation: Mutations::Responses::CreateResponse
+    field :update_response, mutation: Mutations::Responses::UpdateResponse
+    field :delete_response, mutation: Mutations::Responses::DeleteResponse
   end
 end

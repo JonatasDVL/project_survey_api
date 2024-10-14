@@ -4,7 +4,6 @@ module Mutations
   class Questions::UpdateQuestion < BaseMutation
     argument :id, String, required: true
     argument :text, String, required: false
-    argument :question_type, String, required: false
     
     field :question, Types::QuestionType, null: true
     field :errors, [String], null: false
@@ -21,12 +20,11 @@ module Mutations
 
       user_confirmation = User.find_by(id: survey.user_id)
       
-      if user.role == 1 or user != user_confirmation # para o usuario logado ser igual ao dono da questão
+      if user.role == 1 or user != user_confirmation 
         return { question: nil, errors: ["Permission denied for update"] }
       end
 
       question.text = attributes[:text] unless attributes[:text].nil?
-      question.question_type = attributes[:question_type] unless attributes[:question_type].nil?
 
       if question.save 
         { question: question, errors: []}

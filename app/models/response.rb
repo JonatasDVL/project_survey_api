@@ -5,13 +5,20 @@ class Response < ApplicationRecord
 
   validates :user, presence: true
   validates :question, presence: true
-  validates :selected_option, presence: true, if: -> { text_response.blank? }
-  validates :text_response, presence: true, if: -> { selected_option.blank? }
-  validate :only_one_response_type
+  validate :validate_response_type
 
-  def only_one_response_type
-    if selected_option.present? && text_response.present?
-      errors.add(:base, "Apens uma resposta pode ser fornecida: ou uma opção ou uma resposta de texto.")
+  def validate_response_type
+    case question.question_type
+    when 'multiple_choice', 'checkbox'
+      if selected_option.blank?
+        errors.add(:selected_option, "must be provided for multiple choice or checkbox questions")
+      end
+    when 'short_text', 'long_text'
+      if text_response.blank?
+        errors.add(:text_response, "must be provided for text-based questions")
+      elsif question.question_type == "short_text" and text_response.length > 255
+        errors.add(:text_response, "should not be longer than 255 characters for short text")
+      end
     end
   end
 

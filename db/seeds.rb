@@ -33,7 +33,7 @@ perguntas = Question.create!(
   [
     { text: 'Qual é a sua satisfação geral com o nosso aplicativo?', question_type: 'multiple_choice', survey: pesquisas.first },
     { text: 'Quais funcionalidades você gostaria de ver no futuro?', question_type: 'checkbox', survey: pesquisas.first },
-    { text: 'Sei lá kkkk?', question_type: 'text', survey: pesquisas.first }
+    { text: 'Sei lá kkkk?', question_type: 'short_text', survey: pesquisas.first }
   ]
 )
 

@@ -19,7 +19,7 @@ module Mutations
 
       user_confirmation = User.find_by(id: survey.user_id)
       
-      if user.role == 1 or user != user_confirmation #
+      if user.role == 1 or user != user_confirmation 
         return { question: nil, errors: ["Permission denied for create"] }
       end
 
