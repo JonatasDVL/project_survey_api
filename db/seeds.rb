@@ -8,6 +8,7 @@
 # Criando usuários
 users = User.create!(
   [
+    { name: 'Adm Root', email: 'admroot@gmail.com', password: "123456", role: 0 },
     { name: 'Coordenador Teste', email: 'coordenador@gmail.com', password: "123456", role: 0 },
     { name: 'Coordenador Teste2', email: 'coordenador2@gmail.com', password: "123456", role: 0 },
     { name: 'Respondente Teste', email: 'respondente@gmail.com', password: "123456", role: 1 },
@@ -15,7 +16,7 @@ users = User.create!(
   ]
 )
 
-coordenador1, coordenador2 = users.select { |user| user.role == 0 }
+adm, coordenador1, coordenador2 = users.select { |user| user.role == 0 }
 respondente1, respondente2 = users.select { |user| user.role == 1 }
 
 # Criando pesquisas

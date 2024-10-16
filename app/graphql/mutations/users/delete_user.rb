@@ -21,10 +21,8 @@ module Mutations
       end
 
       if user.destroy 
-        p 111111111111111111111111111111111111
         { user: user, errors: []}
       else
-        p 222222222222222222222222222222222222
         { user: user, errors: user.errors.full_messages}
       end
     end
