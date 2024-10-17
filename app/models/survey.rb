@@ -11,7 +11,7 @@ class Survey < ApplicationRecord
 
   def end_date_after_start_date
     if start_date.present? && end_date.present? && end_date <= start_date
-      errors.add(:end_date, "deve ser após a data de início")
+      errors.add(:end_date, "must be after the start date")
     end
   end
 end

@@ -8,6 +8,8 @@ class Response < ApplicationRecord
   validate :validate_response_type
 
   def validate_response_type
+    return if question.nil?
+    
     case question.question_type
     when 'multiple_choice', 'checkbox'
       if selected_option.blank?

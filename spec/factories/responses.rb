@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :response do
-    user { nil }
-    question { nil }
-    selected_option { nil }
-    text_response { "MyText" }
+    association :user 
+    association :question 
+    selected_option { association :option }
+    text_response { "textResponse" }
   end
 end

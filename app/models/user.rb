@@ -4,9 +4,8 @@ class User < ApplicationRecord
   has_many :responses, dependent: :destroy
 
   validates :name, presence: true, length: { minimum: 2 }
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\.[^@\s]+\z/, message: "is invalid" }
   validates :password, presence: true, length: { minimum: 6 }
-  validates :role, presence: true, inclusion: { in: [0, 1], message: "%{value} is not a valid value
-" }
+  validates :role, presence: true, inclusion: { in: [0, 1] }
   # enum role: { coordinator: 0, respondent: 1 }
 end

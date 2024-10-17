@@ -25,13 +25,14 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 # Gems adicionadas para funcionalidades específicas
 gem 'graphql',"~> 2.3"  # Adiciona suporte a GraphQL
 gem "graphiql-rails", group: :development
-gem 'rspec-rails', '~> 5.0.0'  # Para testes com RSpec
 gem 'faker'  # Geração de dados fictícios para testes
 gem 'jwt'  # Para autenticação via JSON Web Tokens
 
 group :development, :test do
   # Debugging tools
   gem "debug", platforms: %i[mri windows]
+  gem 'rspec-rails' # Para testes com RSpec
+  gem 'shoulda-matchers', '~> 5.0'
 
   # Consider adding these for development/test environments
   gem "pry-rails"  # Para uma melhor experiência de console no Rails
