@@ -22,6 +22,10 @@ module Mutations
       end
 
       question = response.question
+
+      survey = Survey.find_by(id: question.survey_id)
+      return { response: nil, errors: ["Survey closed"] } if survey.start_date > Time.now and Time.now >= survey.end_date
+      
       question_type = question.question_type
       selected_option_id = attributes[:selected_option_id]
       text_response = attributes[:text_response]

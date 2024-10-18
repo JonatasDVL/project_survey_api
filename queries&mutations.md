@@ -107,7 +107,143 @@ query {
       text
       questionType
       createdAt
-      UpdatedAt
+      updatedAt
+      options{
+        text
+        id
+        createdAt
+        updatedAt
+      }
+      responses{
+        id
+        userId
+        questionId
+        textResponse
+        selectedOptionId
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+`
+
+`
+query {
+  myClosedSurveys{
+    id
+    title
+    userId
+    createdAt
+    updatedAt
+    questions{
+      id
+      text
+      questionType
+      createdAt
+      updatedAt
+      options{
+        text
+        id
+        createdAt
+        updatedAt
+      }
+      responses{
+        id
+        userId
+        questionId
+        textResponse
+        selectedOptionId
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+`
+
+` 
+query {
+  myOpenSurveys{
+    id
+    title
+    userId
+    createdAt
+    updatedAt
+    questions{
+      id
+      text
+      questionType
+      createdAt
+      updatedAt
+      options{
+        text
+        id
+        createdAt
+        updatedAt
+      }
+      responses{
+        id
+        userId
+        questionId
+        textResponse
+        selectedOptionId
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+`
+
+`
+query {
+	closedSurveys{
+    id
+    title
+    userId
+    createdAt
+    updatedAt
+    questions{
+      id
+      text
+      questionType
+      createdAt
+      updatedAt
+      options{
+        text
+        id
+        createdAt
+        updatedAt
+      }
+      responses{
+        id
+        userId
+        questionId
+        textResponse
+        selectedOptionId
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+`
+
+`
+query {
+  openSurveys{
+    id
+    title
+    userId
+    createdAt
+    updatedAt
+    questions{
+      id
+      text
+      questionType
+      createdAt
+      updatedAt
       options{
         text
         id
@@ -269,7 +405,8 @@ query {
 }
 `
 
-`query {
+`
+query {
   response(id: "1") {
     userId
     questionId
@@ -413,7 +550,7 @@ mutation {
 
 `
 mutation {
-  createQuestion(input: {text: "asdadadas2", surveyId: "5"}) {
+  createQuestion(input: {text: "asdadadas2", surveyId: "5", questionType: "checkbox"}) {
     question{
       id
       text
@@ -430,6 +567,7 @@ mutation {
     question{
       id
       text
+      questionType
     }
     errors
   }

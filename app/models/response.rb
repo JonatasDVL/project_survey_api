@@ -5,7 +5,7 @@ class Response < ApplicationRecord
 
   validates :user, presence: true
   validates :question, presence: true
-  validate :validate_response_type
+  validate :validate_response_type, if: :new_record?
 
   def validate_response_type
     return if question.nil?

@@ -5,16 +5,19 @@ module Mutations
     argument :question_id, String, required: true
     argument :selected_option_id, String, required: false
     argument :text_response, String, required: false
-
+    
     field :response, Types::ResponseType, null: true
     field :errors, [String], null: false
-
+    
     def resolve(**attributes)
       user = context[:current_user] 
-
+      
       question = Question.find_by(id: attributes[:question_id])
       return { response: nil, errors: ["Question not found"] } if question.nil?
       
+      survey = Survey.find_by(id: question.survey_id)
+      return { response: nil, errors: ["Survey closed"] } if survey.start_date > Time.now and Time.now >= survey.end_date
+
       question_type = question.question_type
       selected_option_id = attributes[:selected_option_id]
       text_response = attributes[:text_response]
@@ -46,6 +49,7 @@ module Mutations
       if selected_option == nil and text_response == nil
         return { response: nil, errors: ["Response inconsistent with the type of question"] } 
       end
+
 
       response = Response.new(
         user: user,
